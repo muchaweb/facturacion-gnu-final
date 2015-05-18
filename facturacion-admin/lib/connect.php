@@ -1,12 +1,12 @@
 <?php
 function Connect()
 {
-    if (!($link=mysql_connect("192.168.1.69","root","berna"))) {
+    if (!($link=mysql_connect("localhost","root",""))) {
         echo "Error conectando a la base de datos.";
         exit();
     }
 
-    if (!mysql_select_db("gnu_v3",$link)){
+    if (!mysql_select_db("final-database-gnu",$link)){
         echo "Error seleccionando la base de datos.";
         exit();
     }

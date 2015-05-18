@@ -111,10 +111,27 @@ foreach ($idSale as $key) {
 
     //-------------------------------------------BEGIN PDF------------------------------------------------------------
 	
-    
+  //GUARDAR TIMBRADO EN TXT
+  $timbreFiscal= '_generate/timbre_fiscal'.$idFacturacion.'.txt';
+  $fp = fopen($timbreFiscal, 'w+');
+
+  $timbreXML  = $tfdTimbre_pre;
+  $timbreXML  .= " ".$uuid_pre;
+  $timbreXML  .= " ".$fechaTimbrado_pre;
+  $timbreXML  .= " ".$selloCFD_pre;
+  $timbreXML  .= " ".$numCertificadoSAT_pre;
+  $timbreXML  .= " ".$selloSAT_pre;
+  $timbreXML  .= " ".$schemaLocation_pre;
+  $timbreXML  .= " ".$xmlnsTFD_pre;
+  $timbreXML  .= ' xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>';
+
+  fwrite($fp, $timbreXML);
+  fclose($fp);
+  //GUARDAR TIMBRADO EN TXT
+
     include('xml.php');
 
-	include('qr_generate.php');
+	  include('qr_generate.php');
 
     include('pdf.php');
 	
