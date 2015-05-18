@@ -218,6 +218,9 @@ foreach ($operacion as $keyXMLPDF) {
   $xmlnsTFD_pre          =   $resultOperation['xmlnsTFD']; 
   $xmlnsXSI_pre          =   $resultOperation['xmlnsXSI']; 
 
+
+  
+
   //Obteniendo contenido de las comillas
   $sat0 = preg_match('/"([^"]+)"/', $tfdTimbre_pre, $tfdTimbre);
   $sat1 = preg_match('/"([^"]+)"/', $uuid_pre, $uuid);
@@ -229,6 +232,24 @@ foreach ($operacion as $keyXMLPDF) {
   $sat7 = preg_match('/"([^"]+)"/', $xmlnsTFD_pre, $xmlnsTFD);
   $sat8 = preg_match('/"([^"]+)"/', $xmlnsXSI_pre, $xmlnsXSI);
 }
+  
+  //GUARDAR TIMBRADO EN TXT
+  $timbreFiscal= '_generate/timbre_fiscal'.$idFacturacion.'.txt';
+  $fp = fopen($timbreFiscal, 'w+');
+
+  $timbreXML  = $tfdTimbre_pre;
+  $timbreXML  .= " ".$uuid_pre;
+  $timbreXML  .= " ".$fechaTimbrado_pre;
+  $timbreXML  .= " ".$selloCFD_pre;
+  $timbreXML  .= " ".$numCertificadoSAT_pre;
+  $timbreXML  .= " ".$selloSAT_pre;
+  $timbreXML  .= " ".$schemaLocation_pre;
+  $timbreXML  .= " ".$xmlnsTFD_pre;
+  $timbreXML  .= ' xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>';
+
+  fwrite($fp, $timbreXML);
+  fclose($fp);
+  //GUARDAR TIMBRADO EN TXT
 
   include('xml.php');
   
