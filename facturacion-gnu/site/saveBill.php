@@ -135,6 +135,7 @@ foreach ($operacion as $key) {
 }
 //End foreach_0
 
+$idOperacionCliente = mysql_insert_id();
 //Guardar timbrado
 //Begin foreach_1
 foreach ($operacion as $keyData) {
@@ -232,7 +233,9 @@ foreach ($operacion as $keyXMLPDF) {
   $sat7 = preg_match('/"([^"]+)"/', $xmlnsTFD_pre, $xmlnsTFD);
   $sat8 = preg_match('/"([^"]+)"/', $xmlnsXSI_pre, $xmlnsXSI);
 }
-  
+
+
+    
   //GUARDAR TIMBRADO EN TXT
   $timbreFiscal= '_generate/timbre_fiscal'.$idFacturacion.'.txt';
   $fp = fopen($timbreFiscal, 'w+');
