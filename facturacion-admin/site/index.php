@@ -31,6 +31,25 @@ $rfc_gnu = $gnu['rfc_gnu'];
 $mainCustomer = $gnu['nombre_gnu'];
 $addressCustomer = $gnu['calle_gnu'] . " #" . $gnu['numero_gnu'] . ", Colonia " . $gnu['colonia_gnu'] . ", C.P. " . $gnu['cp_gnu'] . ", " . $gnu['municipio_gnu'] . ", " . $gnu['estado_gnu'];
 
+
+//FILTER
+$fecha_inicio_calendario = $_POST['fecha_inicio'];
+$fecha_fin_calendario    = $_POST['fecha_fin'];
+
+if($fecha_inicio_calendario != ""){
+    $newDateBegin = explode("-", $fecha_inicio_calendario);
+    $fecha_inicio = $newDateBegin['2']."-".$newDateBegin['1']."-".$newDateBegin['0'];
+}else{
+    $fecha_inicio_calendario = "";
+}
+
+if($fecha_fin_calendario != ""){
+    $newDateEnd = explode("-", $fecha_fin_calendario);
+    $fecha_fin = $newDateEnd['2']."-".$newDateEnd['1']."-".$newDateEnd['0'];
+}else{
+    $fecha_fin_calendario = "";
+}
+//FILTER
 ?>
 
 <!doctype html>
@@ -78,6 +97,7 @@ $addressCustomer = $gnu['calle_gnu'] . " #" . $gnu['numero_gnu'] . ", Colonia " 
                 <div id="getBill" class="getBill">
                 <div class="alert alert-custom">
                     Seleccione del siguiente listado aquellos datos de sus clientes que no solicitaron factura.
+                    <br>Seleccione el rango de fechas a consultar.
                 </div>
                 <div class="message"></div>
                 
@@ -91,19 +111,20 @@ $addressCustomer = $gnu['calle_gnu'] . " #" . $gnu['numero_gnu'] . ", Colonia " 
                     $operation = substr($allOperations, 0, -1);
 
                     //-- First cross domain
-                        $url = "http://gnuvehicular.mine.nu:8580/ventas_1dia.php";
+                        $url_range = "http://gnuvehicular.mine.nu:8580/ventas_rango.php?fecha_inicio=$fecha_inicio&fecha_fin=$fecha_fin";
+                        //$url = "http://gnuvehicular.mine.nu:8580/ventas_1dia.php";
                         $ch = curl_init();
-                        curl_setopt($ch, CURLOPT_URL, $url);
+                        curl_setopt($ch, CURLOPT_URL, $url_range);
                         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
                         curl_setopt($ch, CURLOPT_TIMEOUT, 200);
                         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
                         $json_object = curl_exec($ch);
                         curl_close($ch);
                         $array = json_decode($json_object, true);
-						
+                        
 
                         //--
-                        $url_true = "http://gnuvehicular.mine.nu:8580/ventas_3meses.php?generated=true&operation=$operation&billOperation=$billOperation";
+                        $url_true = "http://gnuvehicular.mine.nu:8580/ventas_rango.php?fecha_inicio=$fecha_inicio&fecha_fin=$fecha_fin";
                         $ch_true = curl_init();
                         curl_setopt($ch_true, CURLOPT_URL, $url_true);
                         curl_setopt($ch_true, CURLOPT_RETURNTRANSFER, 1);
@@ -120,13 +141,34 @@ $addressCustomer = $gnu['calle_gnu'] . " #" . $gnu['numero_gnu'] . ", Colonia " 
                     
                     ?>
                     <ul class="nav nav-tabs bottom" role="tablist">
-                        <li class="active"><a href="#" class="size-menu"> <i class="fa fa-calendar"></i> Ventas de 1 día</a></li>
-                        <li><a href="ventas-1-semana.php" class="size-menu"> <i class="fa fa-calendar"></i> Ventas de 1 semana</a></li>
-                        <li><a href="ventas-1-mes.php" class="size-menu"> <i class="fa fa-calendar"></i> Ventas de 1 mes</a></li>
-                        <li><a href="ventas-2-meses.php" class="size-menu"><i class="fa fa-calendar"></i> Ventas de 2 meses</a></li>
-                        <li><a href="ventas-3-meses.php" class="size-menu"> <i class="fa fa-calendar"></i> Ventas de 3 meses</a></li>
+                        <li class="active"><a href="#" class="size-menu"> <i class="fa fa-calendar"></i> Filtro de ventas</a></li>
+                        <li><a href="ventas-1-dia.php" class="size-menu"> <i class="fa fa-calendar"></i> Ventas de 1 día</a></li>
                         </li>
                     </ul>
+
+
+                    <form class="form-horizontal bottom" method="post" action="" role="form">
+                        <table width="100%">
+                            <tr>
+                                <td>
+                                    <div class="input-group">
+                                        <span class="input-group-addon green"><i class="fa fa-calendar"></i></span>
+                                        <input type="text" required class="form-control" id="fecha_inicio" name="fecha_inicio" placeholder="Fecha inicio">
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="input-group space-left">
+                                        <span class="input-group-addon green"><i class="fa fa-calendar"></i></span>
+                                        <input type="text" required class="form-control" id="fecha_fin" name="fecha_fin" placeholder="Fecha fin">
+                                    </div>
+                                </td>
+
+                                <td>
+                                    <button type="submit" class="btn green space-left"><i class="fa fa-search"></i></button>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
                     <?php  if($contador > 0){ ?>
                     <?php include('informacion-general.php'); ?>
 
@@ -134,7 +176,7 @@ $addressCustomer = $gnu['calle_gnu'] . " #" . $gnu['numero_gnu'] . ", Colonia " 
                     <div id="loading"></div>
                     
                     
-
+            
                     <span class="right blue strong">Total de ventas: <?php echo $contador; ?></span> 
                         <table class="table table-bordered table-hover" >
                             <thead>
@@ -168,7 +210,7 @@ $addressCustomer = $gnu['calle_gnu'] . " #" . $gnu['numero_gnu'] . ", Colonia " 
                         <tbody>
                         <?php 
                             for ($i=1; $i <= $contador; $i++) { 
-							
+                            
                                 $operacion = $array['rows'][$i]['operacion'];
                                 $clientes  = $array['rows'][$i]['clientes'];
                                 $fecha     = $array['rows'][$i]['fecha'];
@@ -176,21 +218,21 @@ $addressCustomer = $gnu['calle_gnu'] . " #" . $gnu['numero_gnu'] . ", Colonia " 
                                 $id        = $array['rows'][$i]['id'];
 
                                 $operacion_true = $array_true['rows'][$i]['operacion'];
-								
-								$op = explode(",", $allOperations);
-								
-								$printRow =  true;
-								
-								foreach($op as $o){
-									if($o == $operacion){
-										
-										$printRow = false;
-										
-									}
-									
-								}
-								
-								if($printRow){ 
+                                
+                                $op = explode(",", $allOperations);
+                                
+                                $printRow =  true;
+                                
+                                foreach($op as $o){
+                                    if($o == $operacion){
+                                        
+                                        $printRow = false;
+                                        
+                                    }
+                                    
+                                }
+                                
+                                if($printRow){ 
 
                         ?>
                                 <tr class="note">
@@ -214,10 +256,10 @@ $addressCustomer = $gnu['calle_gnu'] . " #" . $gnu['numero_gnu'] . ", Colonia " 
                                     </td>
                                 </tr>
                                 <?php
-								}
-							}
-								
-								?>
+                                }
+                            }
+                                
+                                ?>
                         </tbody>
                     </table>
                     <!--Hidden-->
@@ -245,7 +287,9 @@ $addressCustomer = $gnu['calle_gnu'] . " #" . $gnu['numero_gnu'] . ", Colonia " 
 <script>window.jQuery || document.write('<script src="../js/vendor/jquery-1.11.0.min.js"><\/script>')</script>
 <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
 <script src="../lib/fancybox/source/jquery.fancybox.pack.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 <script src="../js/main.js"></script> 
+
 
 <script type="text/javascript">
   $('#checkAll').click(function(){

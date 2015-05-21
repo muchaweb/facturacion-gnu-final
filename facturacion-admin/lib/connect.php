@@ -1,4 +1,6 @@
 <?php
+date_default_timezone_set('America/Mexico_City');
+
 function Connect()
 {
     if (!($link=mysql_connect("localhost","root",""))) {
