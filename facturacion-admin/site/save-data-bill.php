@@ -41,8 +41,8 @@ $idFacturacion_folio = $idFacturacion + 1;
 
 foreach ($idSale as $key) {
   
-  $insertOp = mysql_query("INSERT INTO operacion_cliente (numeroOperacion, idFacturacion) VALUES ('$key', '$idFacturacion')")or die(mysql_error());
-  
+  $insertOp = mysql_query("INSERT INTO operacion_cliente (numeroOperacion, idFacturacion) VALUES ('$key', '$idFacturacion')");
+
   $updateFG = mysql_query("UPDATE factura_general SET idFacturacion = '$idFacturacion' WHERE idFolioFactura = '$idFac1'")or die(mysql_error());
 
 

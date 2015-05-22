@@ -252,7 +252,7 @@ if($fecha_fin_calendario != ""){
                                         <span class="label label-danger">No Facturado</span>
                                     </td>
                                     <td>
-                                        <input type="checkbox" class="checkbox1" name="idSale[]" id="idSale" value="<?php echo $id; ?>" title="<?php echo $id; ?>">
+                                        <input type="checkbox" class="checkbox1" name="idSale[]" id="idSale" value="<?php echo $operacion; ?>" title="<?php echo $operacion; ?>">
                                     </td>
                                 </tr>
                                 <?php

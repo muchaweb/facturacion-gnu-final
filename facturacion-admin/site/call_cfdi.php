@@ -27,7 +27,21 @@ $client = new SoapClient('https://www.fiscoclic.mx/factura/WSEntityServices/timb
       $schemaLocation_pre = $var[9] . " " . $var[10]; //schemaLocation
       $xmlnsTFD_pre = $var[11]; //xmlns:tfd
       $xmlnsXSI_pre = $var[12]; //xmlns:xsi
+}catch (SoapFault $exception) { 
 
+    foreach($idSale as $opDel){
+      if($uuid_pre == NULL){
+
+      $deletePreFactura2 = mysql_query("DELETE FROM operacion_cliente WHERE numeroOperacion = '$opDel'")or die(mysql_error());
+
+      echo "<script type='text/javascript'>window.location.href = 'index.php?operacion=no_completada'; </script>";
+      
+
+      }
+    }
+    exit;
+
+}
       //This extract content from double quotes " "
       $sat0 = preg_match('/"([^"]+)"/', $tfdTimbre_pre, $tfdTimbre);
       $sat1 = preg_match('/"([^"]+)"/', $uuid_pre, $uuid);
@@ -38,19 +52,5 @@ $client = new SoapClient('https://www.fiscoclic.mx/factura/WSEntityServices/timb
       $sat6 = preg_match('/"([^"]+)"/', $schemaLocation_pre, $schemaLocation);
       $sat7 = preg_match('/"([^"]+)"/', $xmlnsTFD_pre, $xmlnsTFD);
       $sat8 = preg_match('/"([^"]+)"/', $xmlnsXSI_pre, $xmlnsXSI);
-}catch (SoapFault $exception) { 
 
-    foreach($idSale as $opDel){
-      if($uuid_pre == NULL){
-
-      $deletePreFactura2 = mysql_query("DELETE FROM operacion_cliente WHERE numeroOperacion = '$opDel'") or die(mysql_error());
-
-      echo "<script type='text/javascript'>window.location.href = 'index.php?operacion=no_completada'; </script>";
-      
-
-      }
-    }
-    exit;
-
-}
 ?>
