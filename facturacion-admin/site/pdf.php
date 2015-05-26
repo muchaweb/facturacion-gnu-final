@@ -94,11 +94,11 @@ $billPDF = '
             </tr>';
             $billPDF .='
             <tr>
-              <td align="" style="padding: 10px; border: solid 3px white; height: auto; vertical-align: top;">'.$volumen.'</td>
+              <td align="" style="padding: 10px; border: solid 3px white; height: auto; vertical-align: top;">'.number_format($volumen,2).'</td>
               <td align="" style="padding: 10px; border: solid 3px white; height: auto; vertical-align: top;">m<sup>3</sup></td>
               <td align="" style="padding: 10px; border: solid 3px white; height: auto; vertical-align: top;">Gas Natural Comprimido</td>
               <td align="" style="padding: 10px; border: solid 3px white; height: auto; vertical-align: top;">$'.number_format($precioPorUnidad, 2).'</td>
-              <td align="" style="padding: 10px; border: solid 3px white; height: auto; vertical-align: top;">$'.$subtotal.'</td>
+              <td align="" style="padding: 10px; border: solid 3px white; height: auto; vertical-align: top;">$'.number_format($subtotal,2).'</td>
             </tr>';
         $billPDF .= '
         </table>
@@ -110,11 +110,11 @@ $billPDF = '
         <table style="width: 99%">
             <tr>
                 <td align="right" style="padding:5px; border: solid 3px white; width:100px;" class="">
-                    <span style="text-align:left;">I.V.A.</span> $' . $importe . '</td>
+                    <span style="text-align:left;">I.V.A.</span> $' . number_format($importe,2) . '</td>
             </tr>
             <tr>
                 <td align="right" style="padding:5px; border: solid 3px white; width:100px;" class="">
-                    <span style="text-align:left;">TOTAL</span> $'.$total.'</td>
+                    <span style="text-align:left;">TOTAL</span> $'.number_format($total, 2).'</td>
             </tr>
             <tr>
                 <td align="right" style="padding:5px; border: solid 3px white; width:100px; position:fixed;" class="">'.$nLetra.'</td>

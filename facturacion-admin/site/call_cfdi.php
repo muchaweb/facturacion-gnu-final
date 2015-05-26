@@ -12,7 +12,8 @@ $client = new SoapClient('https://www.fiscoclic.mx/factura/WSEntityServices/timb
     'user'=>'AAA111111ZZZ',
     'pass'=>'TeStInGfIsCoClIc2012Ws'
     );
-  try {
+
+try {
       $result = $client->timbraCFDIXMLTest($params);
       $taxStamps  = $client->__getLastResponse();
       $var = explode(" ", $taxStamps);

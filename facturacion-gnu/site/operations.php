@@ -1,13 +1,19 @@
 <?php 
+//Nueva version
 $concepto = $concepto_original;
 
 $volumen                    =   $volumen_array; //Sumando
-$precioPorUnidad      		=   number_format(($precioPorUnidadConIVA/1.16),4);
-$subtotal 		      		=   number_format(($precioPorUnidad * $volumen),2);
-$subtotal_final 			= 	$subtotalIVA; //Sumado
 
-$total                		=   number_format($subtotal_final, 2);
-//$total                	=   number_format(($subtotal * 1.16),2);
-$importe 			  		=   number_format($total - $subtotal,2);
+$prePPU 					=   $precioPorUnidadConIVA/(1.16);
+$precioPorUnidad      		=   number_format($prePPU,2, '.', '');
 
+$preSubtotal 				=   $prePPU * $volumen;
+$subtotal 		      		=   number_format(($preSubtotal),2, '.', '');
+
+$subtotal_final 			= 	$subtotalIVA; //Sumado de subtotales de la bd
+
+$preImporte = $subtotal_final - $preSubtotal;
+$importe = number_format($preImporte, 2, '.', '');
+
+$total = number_format($subtotalIVA, 2, '.', '');
 ?>

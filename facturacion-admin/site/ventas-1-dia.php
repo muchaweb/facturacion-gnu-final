@@ -107,7 +107,7 @@ $addressCustomer = $gnu['calle_gnu'] . " #" . $gnu['numero_gnu'] . ", Colonia " 
                         $ch_true = curl_init();
                         curl_setopt($ch_true, CURLOPT_URL, $url_true);
                         curl_setopt($ch_true, CURLOPT_RETURNTRANSFER, 1);
-                        curl_setopt($ch_true, CURLOPT_TIMEOUT, 200);
+                        curl_setopt($ch_true, CURLOPT_TIMEOUT, 0);
                         curl_setopt($ch_true, CURLOPT_SSL_VERIFYPEER, false);
                         $json_object_true = curl_exec($ch_true);
                         curl_close($ch_true);

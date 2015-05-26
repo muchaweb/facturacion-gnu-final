@@ -50,7 +50,7 @@ foreach ($idSale as $key) {
    $ch = curl_init();
    curl_setopt($ch, CURLOPT_URL, $url);
    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-   curl_setopt($ch, CURLOPT_TIMEOUT, 0);
+   curl_setopt($ch, CURLOPT_TIMEOUT, 200);
    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
    $json_object = curl_exec($ch);
    curl_close($ch);
@@ -66,7 +66,8 @@ foreach ($idSale as $key) {
    $precioPorUnidadConIVA      =   $array['rows'][1]['precioUnitario']; //Siempre es unico
    $subtotalIVA                +=  $array['rows'][1]['subtotal'];
     
-}//End foreach
+}
+//End foreach
 
   include('operations.php');
   include('call_impress.php');

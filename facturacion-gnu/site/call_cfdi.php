@@ -10,10 +10,9 @@ $client = new SoapClient('https://www.fiscoclic.mx/factura/WSEntityServices/timb
   $params = array(
     'cfdi'=> $cfdi_final,
     'user'=>'AAA111111ZZZ',
-    'pass'=>'TeStInGfIsCoClIc2012W'
+    'pass'=>'TeStInGfIsCoClIc2012Ws'
     );
 
-  //TeStInGfIsCoClIc2012Ws
 
   try {
     $result = $client->timbraCFDIXMLTest($params);
@@ -37,7 +36,7 @@ $client = new SoapClient('https://www.fiscoclic.mx/factura/WSEntityServices/timb
 
       $deletePreFactura2 = mysql_query("DELETE FROM operacion_cliente WHERE numeroOperacion = '$opDel'") or die(mysql_error());
 
-      echo "<script type='text/javascript'>window.location.href = 'options.php?operacion=no_completada'; </script>";
+      echo "<script type='text/javascript'>window.location.href = 'options.php?operacion=no_completada2'; </script>";
       
 
       }
