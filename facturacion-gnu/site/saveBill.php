@@ -63,13 +63,13 @@ $cp                     =       $_POST['cp'];
 
 
 if($_POST['numInterior'] == "" OR $_POST['numInterior'] == null){
-  $numInterior            = 0;
+  $numInterior            = " ";
 }else{
   $numInterior            = $_POST['numInterior'] ;
 }
 
 if($_POST['localidad']   == "" OR $_POST['localidad'] == null){
-  $localidad              = "No disponible";
+  $localidad              = "NO IDENTIFICADO";
 }else{
   $localidad              = $_POST['localidad'] ;
 }
@@ -141,7 +141,7 @@ $idOperacionCliente = mysql_insert_id();
 foreach ($operacion as $keyData) {
 
  
-  $getFolio = mysql_query("SELECT * FROM operacion_cliente WHERE numeroOperacion ='$keyData'")or die(mysql_error());
+  $getFolio = mysql_query("SELECT * FROM operacion_cliente WHERE numeroOperacion ='$keyData'");
   $resOp    = mysql_fetch_array($getFolio);
   $folioID  =   $resOp['idOperacion'];
 
@@ -260,7 +260,7 @@ foreach ($operacion as $keyXMLPDF) {
   include('pdf.php');
   
 
-  $getRFC = mysql_query("SELECT * FROM clientes WHERE id_cliente ='$idclientes' LIMIT 1") or die(mysql_error());
+  $getRFC = mysql_query("SELECT * FROM clientes WHERE id_cliente ='$idclientes' LIMIT 1");
   $resultrfc = mysql_fetch_array($getRFC);
   $rfc_factura       =   $resultrfc['rfc'];
  
