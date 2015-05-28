@@ -92,7 +92,7 @@ foreach ($idSale as $key) {
 
   //--------------------------------------------SAVE GENERAL DATA----------------------------------------------------
 
-  $saveGeneralData = mysql_query("UPDATE factura_general SET montoTotal = '$totalSales', totalLetra = '$nLetra'")or die(mysql_error());
+  $saveGeneralData = mysql_query("UPDATE factura_general SET montoTotal = '$total', totalLetra = '$nLetra' WHERE idFolioFactura = '$idFac1'")or die(mysql_error());
   //-----------------------------------------------------------------------------------------------------------------
 
   if ($saveGeneralData = true) {
