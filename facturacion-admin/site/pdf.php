@@ -63,7 +63,7 @@ $billPDF = '
         <div style="height:100px; font-size:14px;" >
             <div style="padding: 5px; ">
                 <strong>No.de certificado emisor</strong><br>
-                <span>00001000000203345673</span> 
+                <span>00001000000303280009</span> 
             </div>
 
             <div style="padding: 5px;">
